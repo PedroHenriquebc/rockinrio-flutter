@@ -28,7 +28,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Atrações"),
+      ),
+      body: ListView.builder(
+        itemCount: listaAtracoes.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(listaAtracoes[index].nome)
+          );
+        },
+      ),
+    );
   }
 }
 
