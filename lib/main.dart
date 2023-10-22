@@ -11,6 +11,7 @@ class RockInRioApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Rock in Rio",
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.indigo),
       home: const HomePage(),
     );
