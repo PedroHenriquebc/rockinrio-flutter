@@ -34,10 +34,16 @@ class _HomePageState extends State<HomePage> {
         title: const Text("Atrações"),
       ),
       body: ListView.builder(
+        padding: const EdgeInsets.symmetric(vertical: 15),
         itemCount: listaAtracoes.length,
         itemBuilder: (context, index) {
           final isFavorito = _listaFavoritos.contains(listaAtracoes[index]);
           return ListTile(
+            onTap: () {
+              Navigator.push(
+                context, MaterialPageRoute(builder: (context) => AtracaoPage(atracao: listaAtracoes[index]))
+              );
+            },
             title: Text(listaAtracoes[index].nome),
             subtitle: Wrap(
               spacing: 8,
@@ -66,6 +72,24 @@ class _HomePageState extends State<HomePage> {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class AtracaoPage extends StatelessWidget {
+  final Atracao atracao;
+  const AtracaoPage({super.key, required this.atracao});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(atracao.nome),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Placeholder(),
       ),
     );
   }
