@@ -89,7 +89,18 @@ class AtracaoPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        child: Placeholder(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            for (var tag in atracao.tags) Chip(label: Text("#$tag")),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              }, 
+              child: const Text("Voltar"))
+          ],
+        ),
       ),
     );
   }
