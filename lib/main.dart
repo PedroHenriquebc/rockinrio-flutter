@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const RockInRioApp());
@@ -12,7 +13,7 @@ class RockInRioApp extends StatelessWidget {
     return MaterialApp(
       title: "Rock in Rio",
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.indigo),
+      theme: ThemeData(primarySwatch: Colors.indigo, textTheme: GoogleFonts.comfortaaTextTheme(),),
       home: const HomePage(),
     );
   }
@@ -31,47 +32,67 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Atrações"),
+        title: Text("Rock in Rio", style: GoogleFonts.nosifer(fontSize: 25)),
       ),
-      body: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 15),
-        itemCount: listaAtracoes.length,
-        itemBuilder: (context, index) {
-          final isFavorito = _listaFavoritos.contains(listaAtracoes[index]);
-          return ListTile(
-            onTap: () {
-              Navigator.push(
-                context, MaterialPageRoute(builder: (context) => AtracaoPage(atracao: listaAtracoes[index]))
-              );
-            },
-            title: Text(listaAtracoes[index].nome),
-            subtitle: Wrap(
-              spacing: 8,
-              runSpacing: 4,
-              children: listaAtracoes[index]
-                  .tags
-                  .map((tag) => Chip(label: Text('#$tag')))
-                  .toList(),
+      body: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.only(left: 20, top: 15, bottom: 5),
+            child: const Row(
+              children: [
+                Expanded(flex: 1, child: Text("DIA", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
+                Expanded(flex: 3, child: Text("ATRAÇÃO", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
+              ],
             ),
-            leading: CircleAvatar(
-              child: Text('${listaAtracoes[index].dia}'),
-            ),
-            trailing: IconButton(
-              onPressed: () {
-                setState(() {
-                  if (isFavorito) {
-                    _listaFavoritos.remove(listaAtracoes[index]);
-                  } else {
-                    _listaFavoritos.add(listaAtracoes[index]);
-                  }
-                });
+          ),
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              itemCount: listaAtracoes.length,
+              itemBuilder: (context, index) {
+                final isFavorito = _listaFavoritos.contains(listaAtracoes[index]);
+                return ListTile(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                AtracaoPage(atracao: listaAtracoes[index])));
+                  },
+                  title: Text(listaAtracoes[index].nome, style: const TextStyle(fontSize: 20)),
+                  subtitle: Wrap(
+                    spacing: 8,
+                    runSpacing: 4,
+                    children: listaAtracoes[index]
+                        .tags
+                        .map((tag) => Chip(label: Text('#$tag')))
+                        .toList(),
+                  ),
+                  leading: CircleAvatar(
+                    child: Text('${listaAtracoes[index].dia}'),
+                  ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        if (isFavorito) {
+                          _listaFavoritos.remove(listaAtracoes[index]);
+                        } else {
+                          _listaFavoritos.add(listaAtracoes[index]);
+                        }
+                      });
+                    },
+                    icon: isFavorito
+                        ? const Icon(
+                            Icons.favorite,
+                            color: Colors.red,
+                          )
+                        : const Icon(Icons.favorite_border),
+                  ),
+                );
               },
-              icon: isFavorito
-                ? const Icon(Icons.favorite, color: Colors.red,)
-                : const Icon(Icons.favorite_border),
             ),
-          );
-        },
+          ),
+        ],
       ),
     );
   }
@@ -95,10 +116,10 @@ class AtracaoPage extends StatelessWidget {
             for (var tag in atracao.tags) Chip(label: Text("#$tag")),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              }, 
-              child: const Text("Voltar"))
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text("Voltar"))
           ],
         ),
       ),
@@ -117,12 +138,12 @@ class Atracao {
 const listaAtracoes = [
   Atracao("Avenged Sevenfold", 1, ["Espetaculo", "LIBAD", "NovoAlbum"]),
   Atracao("Iron Maiden", 2, ["Influente", "top", "Show"]),
-  Atracao("Guns N' Roses", 2, ["Sucesso", "jungle", "Fas"]),
-  Atracao("Slipknot", 3, ["2019", "NovoAlbum", "Fas"]),
-  Atracao("Green Day", 4, ["Sucesso", "top", "Fas"]),
-  Atracao("Ghost", 4, ["Espetaculo", "NovoAlbum"]),
-  Atracao("Metallica", 4, ["Influente", "top", "Show"]),
-  Atracao("Cold Play", 5, ["Sucesso", "Fas"]),
+  Atracao("Guns N' Roses", 3, ["Sucesso", "jungle", "Fas"]),
   Atracao("Bullet For My Valentine", 4, ["2019", "TearsDontFall", "Fas"]),
-  Atracao("Linkin Park", 6, ["Sucesso", "Crawling", "Fas"]),
+  Atracao("Green Day", 4, ["Sucesso", "top", "Fas"]),
+  Atracao("Ghost", 5, ["Espetaculo", "NovoAlbum"]),
+  Atracao("Metallica", 6, ["Influente", "top", "Show"]),
+  Atracao("Cold Play", 7, ["Sucesso", "Fas"]),
+  Atracao("Slipknot", 7, ["2019", "NovoAlbum", "Fas"]),
+  Atracao("Linkin Park", 8, ["Sucesso", "Crawling", "Fas"]),
 ];
