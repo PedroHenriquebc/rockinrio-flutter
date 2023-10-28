@@ -32,18 +32,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Rock in Rio", style: GoogleFonts.nosifer(fontSize: 25)),
+        title: Text("Rock in Rio", style: GoogleFonts.nosifer(fontSize: 23)),
       ),
       body: Column(
         children: [
           Container(
             margin: const EdgeInsets.only(left: 20, top: 15, bottom: 5),
-            child: const Row(
-              children: [
-                Expanded(flex: 1, child: Text("DIA", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
-                Expanded(flex: 3, child: Text("ATRAÇÃO", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))),
-              ],
-            ),
+            alignment: Alignment.centerLeft,
+            child: Text("Dias & Atrações", style: GoogleFonts.pacifico(fontSize: 25,)),
           ),
           Expanded(
             child: ListView.builder(
@@ -59,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                             builder: (context) =>
                                 AtracaoPage(atracao: listaAtracoes[index])));
                   },
-                  title: Text(listaAtracoes[index].nome, style: const TextStyle(fontSize: 20)),
+                  title: Text(listaAtracoes[index].nome, style: const TextStyle(fontSize: 15)),
                   subtitle: Wrap(
                     spacing: 8,
                     runSpacing: 4,
